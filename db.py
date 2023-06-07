@@ -32,9 +32,15 @@ def insert_dictionary_to_db(conn):
 
 def insert_result_to_db(conn, raw_text, clean_text):
     # Insert result to database
-    print("INserting result to database...")
+    print("Inserting result to database...")
     df = pd.DataFrame({'raw_text': [raw_text], 'clean_text': [clean_text]})
     df.to_sql('cleansing_result', conn, if_exists='append', index=False)
+    print("Insering result to database success!")
+
+def insert_upload_result_to_db(conn, clean_df):
+    # Insert result to database
+    print("Inserting result to database...")
+    clean_df.to_sql('cleansing_result', conn, if_exists='append', index=False)
     print("Insering result to database success!")
 
 def show_cleansing_result(conn):
