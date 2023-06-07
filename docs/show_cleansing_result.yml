@@ -1,0 +1,13 @@
+tags:
+  - name: Show Cleansing Result from Database
+paths:
+  /show_cleansing_result:
+get:
+  description: get API Information
+responses:
+    '200':
+      description: Successful response
+    '400':
+      description: Bad Request
+    '500':
+      description: Internal Server Error
