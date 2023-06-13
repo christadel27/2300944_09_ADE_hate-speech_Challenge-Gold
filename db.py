@@ -26,7 +26,8 @@ def insert_dictionary_to_db(conn):
     # Read csv file to dataframe
     print("Reading scv file to dataframe....")
     df_abusive = pd.read_csv(abusive_csv_file)
-    df_alay = pd.read_csv(alay_csv_file, sep=',', names=['alay_word', 'formal_word']) # pembaharuan 1
+    df_alay = pd.read_csv(alay_csv_file)
+
     #Standardize column name
     df_abusive.columns =['word']
     df_alay.columns = ['alay_word', 'formal_word']
