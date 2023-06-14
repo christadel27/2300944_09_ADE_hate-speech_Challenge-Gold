@@ -3,7 +3,7 @@ Function untuk membersihkan data text
 """
 import re
 import pandas as pd
-from db import get_abusive_data, get_alay_data, create_connection
+from db import get_abusive_data, create_connection
 
 def text_cleansing(text):
     # Bersihkan tanda baca (selain huruf dan angka)
@@ -17,22 +17,16 @@ def text_cleansing(text):
     for word in abusive_words:
         clean_text = clean_text.replace(word, '***')
     # menggantikan kata sesuai data csv pembeaharuan 1
-    conn = create_connection()
-    df_alay = get_alay_data(conn)
-    replacement_words = dict(zip(df_alay['alay_word'], df_alay['formal_word']))
-    for word in replacement_words:
-        clean_text = clean_text.replace(word, replacement_words.get(word, word))
+    replacement_words = pd.read_csv('csv_data/new_kamusalay.csv')
+    replacement_dict = dict(zip(replacement_words['alay_word'], replacement_words['formal_word']))
+    words = clean_text.split()
+    replaced_words = [replacement_dict.get(word, word) for word in words]
+    clean_text = ' '.join(replaced_words)
     return clean_text
 
 def cleansing_files(file_upload):
     # read csv file upload, jika eror dengan metode biasa
-    try:
-        df_upload = pd.read_csv(file_upload)
-    except:
-        df_upload = pd.read_csv(file_upload, encoding="latin-1")
-    print("Read dataframe from upload success!")
-    # ambil hanya kolom pertama saja
-    df_upload = pd.DataFrame(df_upload.iloc[:,[0]])
+    df_upload = pd.DataFrame(file_upload.iloc[:,[0]])
     # rename kolom menjadi "raw_text"
     df_upload.columns = ["raw_text"]
     # bersihkan teks menggunakan fungsi cleansing

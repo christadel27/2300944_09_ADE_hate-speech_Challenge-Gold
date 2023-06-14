@@ -79,20 +79,23 @@ def cleansing_form():
     db_connection = create_connection()
     insert_result_to_db(db_connection, raw_text, clean_text)
     return jsonify(result_response)
-# Cleansing tetxt using csv upload
+# Cleansing text using csv upload
 @swag_from('docs/cleansing_upload.yml', methods=['POST'])
 @app.route('/cleansing_upload', methods=['POST'])
 def cleansing_upload():
     # Get file from upload to dataframe
     uploaded_file = request.files['upload_file']
     # Read csv file to dataframe
-    df_cleansing = cleansing_files(uploaded_file)
+    df_upload = pd.read_csv(uploaded_file,encoding ='latin-1')
+    print('Read dataframe Upload success!')
+    df_cleansing = cleansing_files(df_upload).head()
     # Upload result to database
     db_connection = create_connection()
     insert_upload_result_to_db(db_connection, df_cleansing)    
     print("Upload result to database success!")
-    result_response = df_cleansing.T.to_dict()
-    return jsonify({"message": "Upload success!"})
+    result_response = df_cleansing.to_dict(orient='records')
+    return jsonify(result_response)
+    result
 
 if __name__ == '__main__':
     app.run()
