@@ -2,6 +2,7 @@ import pandas as pd
 import re
 import matplotlib.pyplot as plt
 import seaborn as sns
+from wordcloud import WordCloud
 # Membaca file CSV
 df = pd.read_csv('csv_data/data_sesuai.csv')
 
@@ -15,7 +16,7 @@ df = df.drop_duplicates(subset='Tweet')
 # Membuat kolom baru 'Panjang_Karakter'
 df['Panjang_Karakter'] = df['Tweet'].apply(lambda x: len(str(x)))
 df['Jumlah_kata'] = df['Tweet'].apply(lambda x: len(x.split(' ')))
-df['Jumlah_kata_sensor'] = df['Tweet'].apply(lambda text: len(re.findall("[***]", text)))
+df['Jumlah_kata_sensor'] = df['Tweet'].apply(lambda text: len(re.findall("[*{3}]", text)))
 df_filtered = df[['Tweet', 'Panjang_Karakter', 'Jumlah_kata','Jumlah_kata_sensor']]
 
 # Menampilkan DataFrame dengan kolom baru
@@ -78,7 +79,7 @@ plt.vlines(df_filtered['Panjang_Karakter'].mode(), 0, 500, label='mode', linesty
 plt.vlines(df_filtered['Panjang_Karakter'].median(), 0, 500, label='median', linestyles='dashed', color='blue')
 plt.legend()
 plt.title("Histrogram and Central Tendency\nof Panjang_Karakter", loc="left", fontsize=14)
-plt.show()
+#plt.show()
 # Menampilkan histogram dan central tendency Jumlah Kata
 sns.histplot(data=df_filtered, x='Jumlah_kata', binwidth=5, kde=True)
 plt.vlines(df_filtered['Jumlah_kata'].mean(), 0, 3000, label='mean', linestyles='dashed', color='red')
@@ -86,7 +87,7 @@ plt.vlines(df_filtered['Jumlah_kata'].mode(), 0, 3000, label='mode', linestyles=
 plt.vlines(df_filtered['Jumlah_kata'].median(), 0, 3000, label='median', linestyles='dashed', color='blue')
 plt.legend()
 plt.title("Histrogram and Central Tendency\nof Jumlah_kata", loc="left", fontsize=14)
-plt.show()
+#plt.show()
 # mengambil sebset dataframe dengan kolom "jumlah kata dan panjang karakter"
 subset_df = df_filtered[['Jumlah_kata', 'Panjang_Karakter']]
 # Korelasi antara kolom-kolom numerik
@@ -94,4 +95,11 @@ correlation = subset_df.corr()
 print(correlation)
 # membuat visualisasi menggunakan scatter
 df.plot(x='Jumlah_kata', y='Panjang_Karakter',kind = 'scatter')
-plt.show()
+#plt.show()
+
+text = ' '.join(df['Tweet'])
+wordcloud = WordCloud().generate(text)
+# Generate plot
+plt.imshow(wordcloud)
+plt.axis('off')
+#plt.show()

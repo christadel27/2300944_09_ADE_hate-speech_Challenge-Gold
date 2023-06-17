@@ -3,3 +3,4 @@ Flask==2.2.2
 flasgger==0.9.5
 seaborn
 matplotlib
+wordcloud

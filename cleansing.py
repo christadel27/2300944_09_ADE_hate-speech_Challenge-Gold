@@ -10,6 +10,9 @@ def text_cleansing(text):
     clean_text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
     # yg lain
     clean_text = clean_text.lower()
+    clean_text = re.sub(r'xf0\S+', '', clean_text)
+    clean_text = re.sub(r'xe\S+', '', clean_text)
+    clean_text = clean_text.strip()
     # abusive
     conn = create_connection()
     df_abusive = get_abusive_data(conn)

@@ -4,6 +4,7 @@ Flask API Application
 
 from flask import Flask, jsonify, request
 import pandas as pd
+from time import perf_counter
 from flasgger import Swagger, swag_from, LazyString, LazyJSONEncoder
 from cleansing import text_cleansing, cleansing_files
 from db import (
@@ -73,8 +74,12 @@ def cleansing_form():
     # get text from input user
     raw_text = request.form["raw_text"]
     # cleansing text
+    start = perf_counter()
     clean_text = text_cleansing(raw_text)
-    result_response ={"raw_text": raw_text, "clean_text": clean_text}
+    end = perf_counter()
+    time = end - start
+    print(f'processing time :{time}')
+    result_response ={"raw_text": raw_text, "clean_text": clean_text, "processing time": time}
     # insert result to database
     db_connection = create_connection()
     insert_result_to_db(db_connection, raw_text, clean_text)
@@ -86,9 +91,14 @@ def cleansing_upload():
     # Get file from upload to dataframe
     uploaded_file = request.files['upload_file']
     # Read csv file to dataframe
-    df_upload = pd.read_csv(uploaded_file,encoding ='latin-1')
+    df_upload = pd.read_csv(uploaded_file,encoding ='latin-1').head(1000)
     print('Read dataframe Upload success!')
-    df_cleansing = cleansing_files(df_upload).head()
+    start = perf_counter()
+    df_cleansing = cleansing_files(df_upload)
+    end = perf_counter()
+    time = end - start
+    print(f'processing time :{time}')
+    
     # Upload result to database
     db_connection = create_connection()
     insert_upload_result_to_db(db_connection, df_cleansing)    
