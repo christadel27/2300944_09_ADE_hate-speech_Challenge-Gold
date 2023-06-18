@@ -25,8 +25,10 @@ print(df_filtered.head())
 # Menghitung mean (rata-rata) panjang karakter
 mean_panjang_karakter = df['Tweet'].str.len().mean()
 mean_jumlah_kata = df['Tweet'].apply(lambda x: len(str(x).split())).mean()
+mean_jumlah_kata_sensor = df['Tweet'].apply(lambda text: len(re.findall("[*{3}]", text))).sum()
 print("Mean Panjang Karakter:", mean_panjang_karakter)
 print("Mean jumlah kata:", mean_jumlah_kata)
+print("Mean jumlah kata yang disensor", mean_jumlah_kata_sensor)
 
 # Menghitung modus (nilai yang paling sering muncul) panjang karakter
 mode_panjang_karakter = df['Tweet'].str.len().mode().values
