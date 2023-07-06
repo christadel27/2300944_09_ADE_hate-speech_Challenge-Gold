@@ -30,7 +30,7 @@ Response di sini artinya adalah menghasilkan output, sesuai request.
 ### Pengertian Data
 Data adalah sekumpulan keterangan ataupun fakta yang dibuat dengan kata-kata, kalimat, simbol, angka, dan lainnya. Data disini didapatkan melalui sebuah proses pencarian dan juga pengamatan yang tepat berdasarkan sumber-sumber tertentu. Adapun pengertian lain dari data yaitu sebagai suatu kumpulan keterangan atau deskripsi dasar yang berasal dari obyek ataupun kejadian.
 Salah satu kemampuan sebagai seorang **data scientist** yaitu kemampuan dalam menganalisis data untuk menjawab permasalahan. Tujuan dari analisis data adalah mendapatkan kesimpilan, solusi serta insight dengan lebih mudah.
-Ada empat langkah spesifik yang harus dilakukan dalam menganalisis data
+Ada empat langkah spesifik yang harus dilakukan dalam menganalisis data yaitu :
 ![image](https://github.com/christadel27/2300944_09_ADE_hate-speech_Challenge-Gold/assets/133072315/d08634eb-1a72-48e9-922e-be8dc50494f5)
 1. Problem Definition : menjelaskan masalah apa sih yang harus dijawab, untuk memudahkan menjawabnya disempurnakan lewat 4 syarat yang harus dilakukan yaitu **Latar Belakang, Tujuan, Rumusan Masalah, dan Sumber Data**.
 2. Data Preparation : adalah proses mencari dan mengumpulkan data yang diperlukan, baik berupa data primer maupun sekunder. Data primer adalah data yang dibuat oleh kita sendiri, mulai dari mengambil data mentah sampai mengolah jadi data yang siap dianalisis.
@@ -48,4 +48,4 @@ Sedangkan data sekunder itu adalah data yang diambil dari sumber lain. Kalau sud
 3. Hasil analisis yang telah dibuat kita buat dalam API menggunakan Flask dan Swagger UI
 
 Untuk lebih lanjut hasil laporan dapat dilihat dalam laporan analisis data dalam bentuk ppt.
-referensi : materi binar academy gold
+Referensi : materi binar academy gold
